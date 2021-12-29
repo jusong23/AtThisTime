@@ -188,9 +188,14 @@ const clothesOptions = {
 };
 
 export default function App() {
+  // useEffect(() => {
+  //   console.log(name);
+  //   console.log("Updated");
+  // }, [name]);  실행 후 배열 내 값이 계속 바뀔때마다  "Updated" 띄움
+
   useEffect(() => {
     getWeather();
-  }, []);
+  }, []); // getWeather을 처음 한번만 사용하고 싶을 때
   const [city, setCity] = useState("Loading...");
   const [days, setDays] = useState([]);
   const [currents, setCurrents] = useState([]);
@@ -229,8 +234,14 @@ export default function App() {
       setHours(json.hourly);
       setCurrents(json.current);
       console.log("it`s working");
+
+      hours[1].temp === 20;
+      console.log(hours[1].temp);
     } catch (error) {
-      Alert.alert("Can't find you.", "So sad");
+      Alert.alert(
+        "위치 권한을 허용해주세요!",
+        "이 앱은 귀하의 데이터를 수집하지 않습니다."
+      );
     }
   };
 
@@ -274,12 +285,19 @@ export default function App() {
                   <View style={styles.tempInfo}>
                     <View style={styles.twoTemp}>
                       <Text style={styles.temp__now}>
-                        {parseFloat(hours[1].feels_like).toFixed(0)} /
+                        {parseFloat(hours[1].temp).toFixed(0) === "-0"
+                          ? "0"
+                          : parseFloat(hours[1].temp).toFixed(0)}
+                        /
                       </Text>
                       <Text style={styles.temp__min}>
-                        {parseFloat(days[0].temp.min - 5).toFixed(0) === "-0"
-                          ? "0℃"
-                          : parseFloat(days[0].temp.min - 5).toFixed(0) + "℃"}
+                        {hours[1].temp > days[0].feels_like.night
+                          ? parseFloat(days[0].feels_like.night).toFixed(0) ===
+                            "-0"
+                            ? "0℃"
+                            : parseFloat(days[0].feels_like.night).toFixed(0) +
+                              "℃"
+                          : parseFloat(hours[1].temp).toFixed(0) + "℃"}
                       </Text>
                     </View>
                     <Text style={styles.temp__main}>
@@ -287,141 +305,105 @@ export default function App() {
                     </Text>
                   </View>
                 </View>
-                {parseFloat(hours[1].feels_like).toFixed(0) >= 28 && (
+                {parseFloat(hours[1].temp).toFixed(0) >= 28 && (
                   <View style={styles.ClothesOfToday}>
+                    <View style={styles.boxOfDegree}>
+                      <Text style={styles.numberOfDegree}>~ 28℃ </Text>
+                    </View>
                     <Image
                       style={styles.clothes__part1}
-                      source={require("./img/part1_1.png")}
+                      source={require("./img2/IMG_2731.png")}
                     />
-                    <Image
-                      style={styles.clothes__part2}
-                      source={require("./img/part1_2.png")}
-                    />
-                    <Text style={styles.exampleOfClothes}>
-                      {clothesOptions.part1.description}
-                    </Text>
                   </View>
                 )}
 
-                {parseFloat(hours[1].feels_like).toFixed(0) >= 23 &&
-                  parseFloat(hours[1].feels_like).toFixed(0) < 28 && (
+                {parseFloat(hours[1].temp).toFixed(0) >= 23 &&
+                  parseFloat(hours[1].temp).toFixed(0) < 28 && (
                     <View style={styles.ClothesOfToday}>
-                      <Image
-                        style={styles.clothes__part1}
-                        source={require("./img/part2_1.png")}
-                      />
-                      <Image
-                        style={styles.clothes__part2}
-                        source={require("./img/part2_2.png")}
-                      />
-                      <Text style={styles.exampleOfClothes}>
-                        {clothesOptions.part2.description}
-                      </Text>
-                    </View>
-                  )}
-
-                {parseFloat(hours[1].feels_like).toFixed(0) >= 20 &&
-                  parseFloat(hours[1].feels_like).toFixed(0) < 23 && (
-                    <View style={styles.ClothesOfToday}>
-                      <Image
-                        style={styles.clothes__part1}
-                        source={require("./img/part3_1.png")}
-                      />
-                      <Image
-                        style={styles.clothes__part2}
-                        source={require("./img/part3_2.png")}
-                      />
-                      <Text style={styles.exampleOfClothes}>
-                        {clothesOptions.part3.description}
-                      </Text>
-                    </View>
-                  )}
-
-                {parseFloat(hours[1].feels_like).toFixed(0) >= 17 &&
-                  parseFloat(hours[1].feels_like).toFixed(0) < 20 && (
-                    <View style={styles.ClothesOfToday}>
-                      <Image
-                        style={styles.clothes__part1}
-                        source={require("./img/part4_1.png")}
-                      />
-                      <Image
-                        style={styles.clothes__part2}
-                        source={require("./img/part4_2.png")}
-                      />
-                      <Text style={styles.exampleOfClothes}>
-                        {clothesOptions.part4.description}
-                      </Text>
-                    </View>
-                  )}
-
-                {parseFloat(hours[1].feels_like).toFixed(0) >= 12 &&
-                  parseFloat(hours[1].feels_like).toFixed(0) < 17 && (
-                    <View style={styles.ClothesOfToday}>
-                      <Image
-                        style={styles.clothes__part1}
-                        source={require("./img/part5_1.png")}
-                      />
-                      <Image
-                        style={styles.clothes__part2}
-                        source={require("./img/part5_2.png")}
-                      />
-                      <View style={styles.goToTheMainPhoto}>
-                        <Text style={styles.exampleOfClothes}>
-                          {clothesOptions.part5.description}
-                        </Text>
+                      <View style={styles.boxOfDegree}>
+                        <Text style={styles.numberOfDegree}>28℃ ~ 23℃ </Text>
                       </View>
-                    </View>
-                  )}
-
-                {parseFloat(hours[1].feels_like).toFixed(0) >= 9 &&
-                  parseFloat(hours[1].feels_like).toFixed(0) < 12 && (
-                    <View style={styles.ClothesOfToday}>
                       <Image
                         style={styles.clothes__part1}
-                        source={require("./img/part6_1.png")}
+                        source={require("./img2/IMG_2732.png")}
                       />
-                      <Image
-                        style={styles.clothes__part2}
-                        source={require("./img/part6_2.png")}
-                      />
-                      <Text style={styles.exampleOfClothes}>
-                        {clothesOptions.part6.description}
-                      </Text>
                     </View>
                   )}
 
-                {parseFloat(hours[1].feels_like).toFixed(0) >= 5 &&
-                  parseFloat(hours[1].feels_like).toFixed(0) < 9 && (
+                {parseFloat(hours[1].temp).toFixed(0) >= 20 &&
+                  parseFloat(hours[1].temp).toFixed(0) < 23 && (
                     <View style={styles.ClothesOfToday}>
+                      <View style={styles.boxOfDegree}>
+                        <Text style={styles.numberOfDegree}>23℃ ~ 20℃ </Text>
+                      </View>
                       <Image
                         style={styles.clothes__part1}
-                        resizeMode="stretch"
-                        source={require("./img/part7_1.png")}
+                        source={require("./img2/IMG_2733.png")}
                       />
-                      <Image
-                        style={styles.clothes__part2}
-                        resizeMode="stretch"
-                        source={require("./img/part7_2.png")}
-                      />
-                      <Text style={styles.exampleOfClothes}>
-                        {clothesOptions.part7.description}
-                      </Text>
                     </View>
                   )}
 
-                {parseFloat(hours[1].feels_like).toFixed(0) < 5 && (
+                {parseFloat(hours[1].temp).toFixed(0) >= 17 &&
+                  parseFloat(hours[1].temp).toFixed(0) < 20 && (
+                    <View style={styles.ClothesOfToday}>
+                      <View style={styles.boxOfDegree}>
+                        <Text style={styles.numberOfDegree}>20℃ ~ 17℃ </Text>
+                      </View>
+                      <Image
+                        style={styles.clothes__part1}
+                        source={require("./img2/IMG_2734.png")}
+                      />
+                    </View>
+                  )}
+
+                {parseFloat(hours[1].temp).toFixed(0) >= 12 &&
+                  parseFloat(hours[1].temp).toFixed(0) < 17 && (
+                    <View style={styles.ClothesOfToday}>
+                      <View style={styles.boxOfDegree}>
+                        <Text style={styles.numberOfDegree}>17℃ ~ 12℃ </Text>
+                      </View>
+                      <Image
+                        style={styles.clothes__part1}
+                        source={require("./img2/IMG_2735.png")}
+                      />
+                    </View>
+                  )}
+
+                {parseFloat(hours[1].temp).toFixed(0) >= 9 &&
+                  parseFloat(hours[1].temp).toFixed(0) < 12 && (
+                    <View style={styles.ClothesOfToday}>
+                      <View style={styles.boxOfDegree}>
+                        <Text style={styles.numberOfDegree}>12℃ ~ 9℃ </Text>
+                      </View>
+                      <Image
+                        style={styles.clothes__part1}
+                        source={require("./img2/IMG_2736.png")}
+                      />
+                    </View>
+                  )}
+
+                {parseFloat(hours[1].temp).toFixed(0) >= 5 &&
+                  parseFloat(hours[1].temp).toFixed(0) < 9 && (
+                    <View style={styles.ClothesOfToday}>
+                      <View style={styles.boxOfDegree}>
+                        <Text style={styles.numberOfDegree}>9℃ ~ 5℃ </Text>
+                      </View>
+                      <Image
+                        style={styles.clothes__part1}
+                        source={require("./img2/IMG_2737.png")}
+                      />
+                    </View>
+                  )}
+
+                {parseFloat(hours[1].temp).toFixed(0) < 5 && (
                   <View style={styles.ClothesOfToday}>
+                    <View style={styles.boxOfDegree}>
+                      <Text style={styles.numberOfDegree}>5℃ ~ </Text>
+                    </View>
                     <Image
                       style={styles.clothes__part1}
-                      source={require("./img/part8_1.png")}
+                      source={require("./img2/IMG_2738.png")}
                     />
-                    <Image
-                      style={styles.clothes__part2}
-                      source={require("./img/part8_2.png")}
-                    />
-                    <Text style={styles.exampleOfClothes}>
-                      {clothesOptions.part8.description}
-                    </Text>
                   </View>
                 )}
 
@@ -473,7 +455,7 @@ export default function App() {
                         color="white"
                       />
                       <Text style={styles.infoOfTime__temp}>
-                        {parseFloat(hour.temp).toFixed(0)}℃
+                        {parseFloat(hour.feels_like).toFixed(0)}℃
                       </Text>
                     </View>
                   ) : (
@@ -571,7 +553,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
   },
   weatherOfToday: {
-    height: "30%",
+    height: "18%",
     marginTop: -40,
     flexDirection: "row",
     justifyContent: "space-evenly",
@@ -597,23 +579,6 @@ const styles = StyleSheet.create({
     color: "white",
     fontWeight: "800",
   },
-  ClothesOfToday: {
-    height: "60%",
-    backgroundColor: "white",
-    flexDirection: "column",
-    alignItems: "center",
-    borderColor: "white",
-    marginRight: 17,
-    marginLeft: 17,
-    borderRadius: 10,
-    shadowColor: "#000000",
-    shadowOpacity: 0.27,
-    shadowRadius: 4.65,
-    shadowOffset: {
-      width: 5,
-      height: 5,
-    },
-  },
   exampleOfClothes: {
     borderEndColor: "black",
     fontSize: 24,
@@ -638,16 +603,10 @@ const styles = StyleSheet.create({
     marginTop: 3,
     marginRight: -10,
   },
-  clothes__part1: {
-    marginTop: 5,
-    width: "78%",
-    height: "40%",
-  },
-  clothes__part2: { width: "30%", height: "45%" },
   // 제발 되라 !!
   // 제발 !!
   emptyContainer: {
-    flex: 1,
+    flex: 1.3,
     backgroundColor: "transparent",
   },
   emptyContainer_2: {
@@ -659,5 +618,49 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
     alignItems: "center",
+  },
+  ClothesOfToday: {
+    flex: 7.5,
+    height: "70%",
+    // backgroundColor: "#F2EFE4",
+    backgroundColor: "#F2EFE4",
+    flexDirection: "column",
+    alignItems: "center",
+    borderColor: "white",
+    marginRight: 17,
+    marginLeft: 17,
+    borderRadius: 10,
+    shadowColor: "#000000",
+    shadowOpacity: 0.27,
+    shadowRadius: 4.65,
+    shadowOffset: {
+      width: 5,
+      height: 5,
+    },
+  },
+  clothes__part1: {
+    flex: 2.2,
+    width: "98%",
+    height: "60%",
+    resizeMode: "stretch",
+    borderBottomRightRadius: 60,
+    borderBottomLeftRadius: 60,
+  },
+  boxOfDegree: {
+    marginTop: 10,
+    flex: 0.3,
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#F2EFE4",
+    borderColor: "#423414",
+    borderWidth: 1.4,
+    borderRadius: 30,
+    width: "70%",
+  },
+  numberOfDegree: {
+    fontSize: 20,
+    color: "#423414",
+    fontWeight: "600",
   },
 });
