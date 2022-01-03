@@ -234,9 +234,6 @@ export default function App() {
       setHours(json.hourly);
       setCurrents(json.current);
       console.log("it`s working");
-
-      hours[1].temp === 20;
-      console.log(hours[1].temp);
     } catch (error) {
       Alert.alert(
         "위치 권한을 허용해주세요!",

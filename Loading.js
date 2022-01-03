@@ -7,13 +7,13 @@ import {
   ActivityIndicator,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import {
-  AdMobBanner,
-  AdMobInterstitial,
-  PublisherBanner,
-  AdMobRewarded,
-  setTestDeviceIDAsync,
-} from "expo-ads-admob";
+// import {
+//   AdMobBanner,
+//   AdMobInterstitial,
+//   PublisherBanner,
+//   AdMobRewarded,
+//   setTestDeviceIDAsync,
+// } from "expo-ads-admob";
 
 const loadingMent = [
   "과거에서 교훈을 얻을 수는 있어도 과거 속에 살 수는 없다.",
@@ -42,17 +42,17 @@ const great = [
 ];
 
 export default function App() {
-  useEffect(() => {
-    adFunction();
-  }, []);
+  // useEffect(() => {
+  //   adFunction();
+  // }, []);
 
-  const adFunction = async () => {
-    await AdMobInterstitial.setAdUnitID(
-      "ca-app-pub-5206743694825527/3476581163"
-    ); // Test ID, Replace with your-admob-unit-id
-    await AdMobInterstitial.requestAdAsync({ servePersonalizedAds: true });
-    await AdMobInterstitial.showAdAsync();
-  };
+  // const adFunction = async () => {
+  //   await AdMobInterstitial.setAdUnitID(
+  //     "ca-app-pub-5206743694825527/3476581163"
+  //   ); // Test ID, Replace with your-admob-unit-id
+  //   await AdMobInterstitial.requestAdAsync({ servePersonalizedAds: true });
+  //   await AdMobInterstitial.showAdAsync();
+  // };
 
   return (
     <View style={styles.loading}>

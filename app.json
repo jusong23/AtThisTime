@@ -2,7 +2,7 @@
   "expo": {
     "name": "기온별 옷차림",
     "slug": "intialProject",
-    "version": "1.6",
+    "version": "2.1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -17,12 +17,9 @@
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "com.jusong23.InitialProject",
-      "buildNumber": "6",
+      "buildNumber": "11",
       "infoPlist": {
         "NSLocationWhenInUseUsageDescription": "This app uses location to get weather information for user`s location."
-      },
-      "config": {
-        "googleMobileAdsAppId": "ca-app-pub-5206743694825527/3476581163"
       }
     },
     "android": {
