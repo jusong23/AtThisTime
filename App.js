@@ -203,7 +203,7 @@ export default function App() {
   const now = date.getTime();
   const [country, setCountry] = useState([]);
   const [ok, setOk] = useState(true);
-
+  //
   const getWeather = async () => {
     try {
       const { granted } = await Location.requestForegroundPermissionsAsync();
